@@ -97,6 +97,14 @@
             word-break: break-word;
         }
 
+        .tag-id {
+            margin-top: 15px;
+
+            font-size: 11px;
+
+            color: #aaa;
+        }
+
         button {
             width: 100%;
 
@@ -154,7 +162,10 @@
         <h1>
             DJI Neo 2 encontrado
         </h1>
-        <h3>Propiedad de Manuel Alexander Arce Ramos</h3>
+
+        <h3>
+            Propiedad de Manuel Alexander Arce Ramos
+        </h3>
 
         <p class="subtitle">
             Si encontraste este drone, puedes avisar
@@ -186,6 +197,11 @@
         >
             Intentar nuevamente
         </button>
+
+        <div
+            id="tagIdElement"
+            class="tag-id"
+        ></div>
 
         <p class="privacy">
             Tu ubicación no se almacena en esta página.
@@ -228,6 +244,28 @@
 
     /*
      * ============================================================
+     * IDENTIFICAR EL NFC
+     * ============================================================
+     *
+     * Ejemplo de URL:
+     *
+     * https://manulex-arce.github.io/drone-nfc/?id=NEO2-001
+     *
+     * En ese caso:
+     *
+     * tagId = "NEO2-001"
+     *
+     */
+
+    const urlParams =
+        new URLSearchParams(window.location.search);
+
+    const tagId =
+        urlParams.get("id") || "SIN-ID";
+
+
+    /*
+     * ============================================================
      * ELEMENTOS
      * ============================================================
      */
@@ -243,6 +281,19 @@
 
     const retryButton =
         document.getElementById("retryButton");
+
+    const tagIdElement =
+        document.getElementById("tagIdElement");
+
+
+    /*
+     * ============================================================
+     * MOSTRAR IDENTIFICADOR DEL NFC
+     * ============================================================
+     */
+
+    tagIdElement.textContent =
+        "Identificador: " + tagId;
 
 
     /*
