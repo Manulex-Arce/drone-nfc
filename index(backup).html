@@ -2,177 +2,233 @@
 
 <html lang="es">
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DJI Neo 2 encontrado</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<style>
-    * {
-        box-sizing: border-box;
-    }
+    <title>DJI Neo 2 encontrado</title>
 
-    body {
-        margin: 0;
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
 
-        font-family:
-            -apple-system,
-            BlinkMacSystemFont,
-            "Segoe UI",
-            Roboto,
-            Arial,
-            sans-serif;
+    <style>
 
-        background: #f4f6f8;
-        color: #202124;
+        * {
+            box-sizing: border-box;
+        }
 
-        padding: 20px;
-    }
 
-    .card {
-        width: 100%;
-        max-width: 430px;
+        body {
 
-        background: white;
+            margin: 0;
 
-        border-radius: 24px;
+            min-height: 100vh;
 
-        padding: 32px 25px;
+            display: flex;
 
-        text-align: center;
+            align-items: center;
 
-        box-shadow:
-            0 10px 35px rgba(0, 0, 0, 0.12);
-    }
+            justify-content: center;
 
-    .drone {
-        font-size: 64px;
-        margin-bottom: 10px;
-    }
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Arial,
+                sans-serif;
 
-    h1 {
-        margin: 0 0 10px;
+            background: #f4f6f8;
 
-        font-size: 27px;
-    }
+            color: #202124;
 
-    .subtitle {
-        margin: 0 auto 25px;
+            padding: 20px;
+        }
 
-        color: #666;
 
-        line-height: 1.5;
-    }
+        .card {
 
-    .status {
-        padding: 16px;
+            width: 100%;
 
-        border-radius: 14px;
+            max-width: 430px;
 
-        background: #f1f3f4;
+            background: white;
 
-        margin-bottom: 15px;
+            border-radius: 24px;
 
-        line-height: 1.4;
-    }
+            padding: 32px 25px;
 
-    .coordinates {
-        display: none;
+            text-align: center;
 
-        margin: 15px 0;
+            box-shadow:
+                0 10px 35px rgba(0, 0, 0, 0.12);
+        }
 
-        padding: 12px;
 
-        border-radius: 10px;
+        .drone {
 
-        background: #f8f9fa;
+            font-size: 64px;
 
-        font-size: 13px;
+            margin-bottom: 10px;
+        }
 
-        color: #666;
 
-        word-break: break-word;
-    }
+        h1 {
 
-    .tag-id {
-        margin-top: 15px;
+            margin: 0 0 10px;
 
-        font-size: 11px;
+            font-size: 27px;
+        }
 
-        color: #aaa;
-    }
 
-    button {
-        width: 100%;
+        h3 {
 
-        padding: 16px;
+            margin: 0 0 12px;
 
-        border: 0;
+            font-size: 17px;
 
-        border-radius: 14px;
+            font-weight: 600;
+        }
 
-        background: #25D366;
 
-        color: white;
+        .subtitle {
 
-        font-size: 17px;
+            margin: 0 auto 25px;
 
-        font-weight: 700;
+            color: #666;
 
-        cursor: pointer;
-    }
+            line-height: 1.5;
+        }
 
-    button:disabled {
-        background: #b7b7b7;
 
-        cursor: not-allowed;
-    }
+        .status {
 
-    .privacy {
-        margin-top: 20px;
+            padding: 16px;
 
-        font-size: 12px;
+            border-radius: 14px;
 
-        line-height: 1.5;
+            background: #f1f3f4;
 
-        color: #888;
-    }
+            margin-bottom: 15px;
 
-    .retry {
-        margin-top: 10px;
+            line-height: 1.4;
+        }
 
-        background: #555;
 
-        display: none;
-    }
-</style>
+        .coordinates {
+
+            display: none;
+
+            margin: 15px 0;
+
+            padding: 12px;
+
+            border-radius: 10px;
+
+            background: #f8f9fa;
+
+            font-size: 13px;
+
+            color: #666;
+
+            word-break: break-word;
+        }
+
+
+        .tag-id {
+
+            margin-top: 15px;
+
+            font-size: 11px;
+
+            color: #aaa;
+        }
+
+
+        button {
+
+            width: 100%;
+
+            padding: 16px;
+
+            border: 0;
+
+            border-radius: 14px;
+
+            background: #25D366;
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+
+        button:disabled {
+
+            background: #b7b7b7;
+
+            cursor: not-allowed;
+        }
+
+
+        .privacy {
+
+            margin-top: 20px;
+
+            font-size: 12px;
+
+            line-height: 1.5;
+
+            color: #888;
+        }
+
+
+        .retry {
+
+            margin-top: 10px;
+
+            background: #555;
+
+            display: none;
+        }
+
+    </style>
 
 </head>
 
+
 <body>
 
+
 <main class="card">
+
 
     <div class="drone">
         🛸
     </div>
 
+
     <h1>
         DJI Neo 2 encontrado
     </h1>
+
 
     <h3>
         Propiedad de Manuel Alexander Arce Ramos
     </h3>
 
+
     <p class="subtitle">
         Si encontraste este drone, puedes avisar
         al propietario directamente por WhatsApp.
     </p>
+
 
     <div
         id="status"
@@ -181,10 +237,12 @@
         📍 Obteniendo tu ubicación...
     </div>
 
+
     <div
         id="coordinates"
         class="coordinates"
     ></div>
+
 
     <button
         id="whatsappButton"
@@ -193,6 +251,7 @@
         Abrir WhatsApp
     </button>
 
+
     <button
         id="retryButton"
         class="retry"
@@ -200,21 +259,25 @@
         Intentar nuevamente
     </button>
 
+
     <div
         id="tagIdElement"
         class="tag-id"
     ></div>
 
+
     <p class="privacy">
-        Tu ubicación no se almacena en esta página.
-        Solo se utiliza para preparar el mensaje de WhatsApp.
+        Tu ubicación se utiliza para facilitar
+        la recuperación del drone.
     </p>
+
 
 </main>
 
 
 
 <script>
+
 
     /*
      * ============================================================
@@ -224,15 +287,14 @@
 
 
     /*
-     * Número de WhatsApp del propietario.
+     * WhatsApp del propietario.
      *
      * El Salvador:
      * 503 + número
      *
-     * NO utilizar:
-     * +503
-     * espacios
-     * guiones
+     * Sin +
+     * Sin espacios
+     * Sin guiones
      */
 
     const WHATSAPP_NUMBER =
@@ -240,7 +302,7 @@
 
 
     /*
-     * Mensaje principal.
+     * Mensaje inicial de WhatsApp.
      */
 
     const BASE_MESSAGE =
@@ -251,9 +313,6 @@
      * ============================================================
      * GOOGLE APPS SCRIPT
      * ============================================================
-     *
-     * Este endpoint registra los escaneos
-     * en Google Sheets.
      */
 
     const APPS_SCRIPT_URL =
@@ -262,10 +321,10 @@
 
     /*
      * ============================================================
-     * IDENTIFICAR EL NFC
+     * OBTENER ID DEL NFC
      * ============================================================
      *
-     * Ejemplo:
+     * URL:
      *
      * https://manulex-arce.github.io/drone-nfc/?id=NEO2-001
      *
@@ -281,20 +340,23 @@
 
 
     const tagId =
-        urlParams.get("id") || "SIN-ID";
+        urlParams.get("id") ||
+        "SIN-ID";
 
 
     /*
      * ============================================================
-     * IDENTIFICADOR ÚNICO DEL ESCANEO
+     * CREAR SCAN ID
      * ============================================================
      *
-     * Cada vez que alguien abre la página
-     * se genera un identificador diferente.
+     * Este ID identifica UNA apertura concreta.
      *
-     * Esto permite registrar primero el escaneo
-     * y posteriormente actualizar ESA MISMA FILA
-     * con las coordenadas GPS.
+     * Ejemplo:
+     *
+     * mfw3kabc-8x2k4p9q
+     *
+     * Se manda tanto al registrar el escaneo
+     * como al actualizar la ubicación.
      */
 
     const scanId =
@@ -307,87 +369,7 @@
 
     /*
      * ============================================================
-     * REGISTRAR ESCANEO
-     * ============================================================
-     *
-     * Esta función crea la fila inmediatamente.
-     *
-     * Todavía no tenemos coordenadas.
-     */
-
-    function registrarEscaneo() {
-
-        const params =
-            new URLSearchParams({
-
-                action: "scan",
-
-                id: tagId,
-
-                ua: navigator.userAgent,
-
-                scan_id: scanId
-
-            });
-
-
-        fetch(
-            APPS_SCRIPT_URL +
-            "?" +
-            params.toString(),
-
-            {
-                mode: "no-cors"
-            }
-
-        ).catch(() => {});
-    }
-
-
-    /*
-     * ============================================================
-     * ACTUALIZAR UBICACIÓN
-     * ============================================================
-     *
-     * Cuando obtenemos GPS, actualizamos
-     * la fila correspondiente utilizando scan_id.
-     */
-
-    function actualizarUbicacion(
-        lat,
-        lon
-    ) {
-
-        const params =
-            new URLSearchParams({
-
-                action: "location",
-
-                lat: lat,
-
-                lon: lon,
-
-                scan_id: scanId
-
-            });
-
-
-        fetch(
-            APPS_SCRIPT_URL +
-            "?" +
-            params.toString(),
-
-            {
-                mode: "no-cors"
-            }
-
-        ).catch(() => {});
-    }
-
-
-    /*
-     * ============================================================
-     * ELEMENTOS
+     * ELEMENTOS HTML
      * ============================================================
      */
 
@@ -423,7 +405,7 @@
 
     /*
      * ============================================================
-     * MOSTRAR IDENTIFICADOR DEL NFC
+     * MOSTRAR ID DEL NFC
      * ============================================================
      */
 
@@ -434,7 +416,7 @@
 
     /*
      * ============================================================
-     * VARIABLES
+     * VARIABLES GPS
      * ============================================================
      */
 
@@ -445,15 +427,231 @@
 
     /*
      * ============================================================
+     * REGISTRAR ESCANEO
+     * ============================================================
+     *
+     * ESTOS SON EXACTAMENTE LOS PARÁMETROS
+     * QUE ESPERA TU Code.gs:
+     *
+     * action
+     * id
+     * ua
+     * scan_id
+     *
+     * NO se utiliza:
+     *
+     * nfc_id
+     * user_agent
+     *
+     * ============================================================
+     */
+
+    function registrarEscaneo() {
+
+
+        const params =
+            new URLSearchParams();
+
+
+        params.set(
+            "action",
+            "scan"
+        );
+
+
+        params.set(
+            "id",
+            tagId
+        );
+
+
+        params.set(
+            "ua",
+            navigator.userAgent
+        );
+
+
+        params.set(
+            "scan_id",
+            scanId
+        );
+
+
+        const url =
+            APPS_SCRIPT_URL +
+            "?" +
+            params.toString();
+
+
+        console.log(
+            "================================"
+        );
+
+        console.log(
+            "REGISTRANDO ESCANEO"
+        );
+
+        console.log(
+            "URL:",
+            url
+        );
+
+        console.log(
+            "action:",
+            "scan"
+        );
+
+        console.log(
+            "id:",
+            tagId
+        );
+
+        console.log(
+            "ua:",
+            navigator.userAgent
+        );
+
+        console.log(
+            "scan_id:",
+            scanId
+        );
+
+        console.log(
+            "================================"
+        );
+
+
+        /*
+         * Usamos Image para enviar la petición
+         * sin depender de CORS.
+         */
+
+        const img =
+            new Image();
+
+
+        img.src =
+            url;
+
+    }
+
+
+    /*
+     * ============================================================
+     * ACTUALIZAR UBICACIÓN
+     * ============================================================
+     *
+     * ESTOS SON EXACTAMENTE LOS PARÁMETROS
+     * QUE ESPERA TU Code.gs:
+     *
+     * action
+     * scan_id
+     * lat
+     * lon
+     *
+     * ============================================================
+     */
+
+    function actualizarUbicacion(
+        lat,
+        lon
+    ) {
+
+
+        const params =
+            new URLSearchParams();
+
+
+        params.set(
+            "action",
+            "location"
+        );
+
+
+        params.set(
+            "scan_id",
+            scanId
+        );
+
+
+        params.set(
+            "lat",
+            lat
+        );
+
+
+        params.set(
+            "lon",
+            lon
+        );
+
+
+        const url =
+            APPS_SCRIPT_URL +
+            "?" +
+            params.toString();
+
+
+        console.log(
+            "================================"
+        );
+
+        console.log(
+            "ACTUALIZANDO UBICACIÓN"
+        );
+
+        console.log(
+            "URL:",
+            url
+        );
+
+        console.log(
+            "action:",
+            "location"
+        );
+
+        console.log(
+            "scan_id:",
+            scanId
+        );
+
+        console.log(
+            "lat:",
+            lat
+        );
+
+        console.log(
+            "lon:",
+            lon
+        );
+
+        console.log(
+            "================================"
+        );
+
+
+        /*
+         * Enviar petición.
+         */
+
+        const img =
+            new Image();
+
+
+        img.src =
+            url;
+
+    }
+
+
+    /*
+     * ============================================================
      * OBTENER UBICACIÓN
      * ============================================================
      */
 
     function obtenerUbicacion() {
 
-        /*
-         * Comprobar soporte GPS.
-         */
 
         if (
             !navigator.geolocation
@@ -477,13 +675,15 @@
 
         navigator.geolocation.getCurrentPosition(
 
+
             /*
              * ====================================================
-             * ÉXITO
+             * GPS OBTENIDO
              * ====================================================
              */
 
             function(position) {
+
 
                 latitude =
                     position.coords.latitude;
@@ -493,9 +693,46 @@
                     position.coords.longitude;
 
 
+                console.log(
+                    "================================"
+                );
+
+                console.log(
+                    "GPS OBTENIDO"
+                );
+
+                console.log(
+                    "Latitude:",
+                    latitude
+                );
+
+                console.log(
+                    "Longitude:",
+                    longitude
+                );
+
+                console.log(
+                    "Accuracy:",
+                    position.coords.accuracy
+                );
+
+                console.log(
+                    "Scan ID:",
+                    scanId
+                );
+
+                console.log(
+                    "================================"
+                );
+
+
                 /*
-                 * Actualizar la misma fila
-                 * que se creó al abrir la página.
+                 * =================================================
+                 * ACTUALIZAR LA MISMA FILA
+                 * =================================================
+                 *
+                 * El mismo scanId utilizado
+                 * durante el registro inicial.
                  */
 
                 actualizarUbicacion(
@@ -505,7 +742,9 @@
 
 
                 /*
-                 * Mostrar coordenadas.
+                 * =================================================
+                 * MOSTRAR COORDENADAS
+                 * =================================================
                  */
 
                 coordinatesElement.style.display =
@@ -521,7 +760,9 @@
 
 
                 /*
-                 * Cambiar estado.
+                 * =================================================
+                 * ESTADO
+                 * =================================================
                  */
 
                 statusElement.innerHTML =
@@ -529,7 +770,9 @@
 
 
                 /*
-                 * Activar WhatsApp.
+                 * =================================================
+                 * WHATSAPP
+                 * =================================================
                  */
 
                 whatsappButton.disabled =
@@ -540,16 +783,20 @@
 
             /*
              * ====================================================
-             * ERROR
+             * ERROR GPS
              * ====================================================
              */
 
             function(error) {
 
+
                 let mensaje;
 
 
-                switch (error.code) {
+                switch (
+                    error.code
+                ) {
+
 
                     case error.PERMISSION_DENIED:
 
@@ -579,6 +826,7 @@
 
                         mensaje =
                             "❌ No fue posible obtener tu ubicación.";
+
                 }
 
 
@@ -596,19 +844,26 @@
              */
 
             {
-                enableHighAccuracy: true,
 
-                timeout: 15000,
+                enableHighAccuracy:
+                    true,
 
-                maximumAge: 0
+                timeout:
+                    15000,
+
+                maximumAge:
+                    0
+
             }
+
         );
+
     }
 
 
     /*
      * ============================================================
-     * MOSTRAR ERROR
+     * ERROR GPS
      * ============================================================
      */
 
@@ -616,13 +871,14 @@
         mensaje
     ) {
 
+
         statusElement.innerHTML =
             mensaje;
 
 
         /*
-         * Aunque no tengamos GPS,
-         * permitimos enviar WhatsApp.
+         * Permitimos WhatsApp aunque
+         * no haya GPS.
          */
 
         whatsappButton.disabled =
@@ -631,16 +887,18 @@
 
         retryButton.style.display =
             "block";
+
     }
 
 
     /*
      * ============================================================
-     * ABRIR WHATSAPP
+     * WHATSAPP
      * ============================================================
      */
 
     function abrirWhatsApp() {
+
 
         let mensaje =
             BASE_MESSAGE;
@@ -648,13 +906,14 @@
 
         /*
          * Si tenemos GPS,
-         * agregamos Google Maps.
+         * incluimos la ubicación.
          */
 
         if (
             latitude !== null &&
             longitude !== null
         ) {
+
 
             const mapsURL =
                 "https://maps.google.com/?q=" +
@@ -666,11 +925,21 @@
             mensaje +=
                 "\n\n📍 Mi ubicación actual:\n" +
                 mapsURL;
+
         }
 
 
         /*
-         * Codificar mensaje.
+         * Información adicional.
+         */
+
+        mensaje +=
+            "\n\n🏷️ NFC: " +
+            tagId;
+
+
+        /*
+         * Convertir mensaje.
          */
 
         const encodedMessage =
@@ -680,7 +949,7 @@
 
 
         /*
-         * Crear URL WhatsApp.
+         * URL WhatsApp.
          */
 
         const whatsappURL =
@@ -696,12 +965,13 @@
 
         window.location.href =
             whatsappURL;
+
     }
 
 
     /*
      * ============================================================
-     * EVENTOS
+     * EVENTO WHATSAPP
      * ============================================================
      */
 
@@ -711,13 +981,23 @@
     );
 
 
+    /*
+     * ============================================================
+     * REINTENTAR GPS
+     * ============================================================
+     */
+
     retryButton.addEventListener(
         "click",
         function() {
 
-            latitude = null;
 
-            longitude = null;
+            latitude =
+                null;
+
+
+            longitude =
+                null;
 
 
             whatsappButton.disabled =
@@ -739,17 +1019,46 @@
      * INICIO
      * ============================================================
      *
-     * IMPORTANTE:
+     * 1. Se genera scanId.
      *
-     * El escaneo se registra inmediatamente,
-     * antes de solicitar GPS.
+     * 2. Se registra el escaneo.
      *
-     * Después se intenta obtener la ubicación.
+     * 3. Se solicita GPS.
+     *
+     * 4. Cuando llega GPS, se actualiza
+     *    la MISMA fila mediante scan_id.
+     *
+     * ============================================================
      */
+
+    console.log(
+        "================================"
+    );
+
+    console.log(
+        "INICIO PÁGINA DJI NEO 2"
+    );
+
+    console.log(
+        "NFC ID:",
+        tagId
+    );
+
+    console.log(
+        "SCAN ID:",
+        scanId
+    );
+
+    console.log(
+        "================================"
+    );
+
 
     registrarEscaneo();
 
+
     obtenerUbicacion();
+
 
 </script>
 

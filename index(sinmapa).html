@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  >
+
+  <title>DJI Neo 2 encontrado</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #e5e3df;
+    }
+
+    body {
+      position: relative;
+    }
+
+    /* =====================================================
+       MAPA
+       ===================================================== */
+
+    .map {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #e5e2dc;
+    }
+
+    .terrain {
+      position: absolute;
+      inset: -20%;
+      transform: rotate(-4deg) scale(1.08);
+      transition: transform .3s ease;
+    }
+
+    /* Zonas verdes */
+
+    .park {
+      position: absolute;
+      background: #cfe8c4;
+      border-radius: 40%;
+      opacity: .95;
+    }
+
+    .park.one {
+      width: 280px;
+      height: 190px;
+      left: -50px;
+      top: 100px;
+      transform: rotate(15deg);
+    }
+
+    .park.two {
+      width: 190px;
+      height: 150px;
+      right: -40px;
+      top: 260px;
+      transform: rotate(-20deg);
+    }
+
+    .park.three {
+      width: 260px;
+      height: 180px;
+      left: 20px;
+      bottom: 120px;
+      transform: rotate(-15deg);
+    }
+
+    /* Agua */
+
+    .water {
+      position: absolute;
+      width: 350px;
+      height: 190px;
+      right: -120px;
+      bottom: 80px;
+      background: #b9dff1;
+      border-radius: 55% 45% 50% 40%;
+      transform: rotate(-18deg);
+    }
+
+    /* Edificios */
+
+    .block {
+      position: absolute;
+      background: #dedbd4;
+      border: 1px solid rgba(190,187,180,.55);
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,.25);
+    }
+
+    .b1 {
+      width: 150px;
+      height: 80px;
+      top: 90px;
+      left: 50px;
+      transform: rotate(8deg);
+    }
+
+    .b2 {
+      width: 120px;
+      height: 95px;
+      top: 190px;
+      left: 100px;
+      transform: rotate(-8deg);
+    }
+
+    .b3 {
+      width: 180px;
+      height: 85px;
+      top: 90px;
+      right: 40px;
+      transform: rotate(-5deg);
+    }
+
+    .b4 {
+      width: 130px;
+      height: 110px;
+      top: 330px;
+      right: 80px;
+      transform: rotate(10deg);
+    }
+
+    .b5 {
+      width: 170px;
+      height: 75px;
+      bottom: 230px;
+      left: 80px;
+      transform: rotate(-6deg);
+    }
+
+    .b6 {
+      width: 110px;
+      height: 120px;
+      bottom: 100px;
+      right: 60px;
+      transform: rotate(5deg);
+    }
+
+    /* =====================================================
+       CALLES
+       ===================================================== */
+
+    .road {
+      position: absolute;
+      background: white;
+      box-shadow:
+        0 0 0 1px rgba(210,210,210,.35);
+      z-index: 4;
+    }
+
+    .road.main {
+      width: 120%;
+      height: 38px;
+      left: -10%;
+      top: 47%;
+      transform: rotate(-11deg);
+      background: #f7d88a;
+      box-shadow:
+        0 1px 3px rgba(0,0,0,.12);
+    }
+
+    .road.secondary1 {
+      width: 120%;
+      height: 18px;
+      left: -10%;
+      top: 31%;
+      transform: rotate(17deg);
+    }
+
+    .road.secondary2 {
+      width: 120%;
+      height: 17px;
+      left: -10%;
+      top: 67%;
+      transform: rotate(24deg);
+    }
+
+    .road.secondary3 {
+      width: 18px;
+      height: 120%;
+      left: 32%;
+      top: -10%;
+      transform: rotate(7deg);
+    }
+
+    .road.secondary4 {
+      width: 15px;
+      height: 120%;
+      right: 27%;
+      top: -10%;
+      transform: rotate(-13deg);
+    }
+
+    .road.small1 {
+      width: 100%;
+      height: 9px;
+      left: 0;
+      top: 23%;
+      transform: rotate(-8deg);
+    }
+
+    .road.small2 {
+      width: 100%;
+      height: 9px;
+      left: 0;
+      top: 57%;
+      transform: rotate(8deg);
+    }
+
+    .road.small3 {
+      width: 100%;
+      height: 9px;
+      left: 0;
+      top: 78%;
+      transform: rotate(-13deg);
+    }
+
+    /* =====================================================
+       NOMBRES DE CALLES
+       ===================================================== */
+
+    .street-name {
+      position: absolute;
+      z-index: 6;
+      color: #777;
+      font-size: 11px;
+      white-space: nowrap;
+      text-shadow:
+        0 1px white,
+        1px 0 white,
+        -1px 0 white,
+        0 -1px white;
+    }
+
+    .street1 {
+      top: 43%;
+      left: 13%;
+      transform: rotate(-11deg);
+    }
+
+    .street2 {
+      top: 29%;
+      right: 9%;
+      transform: rotate(17deg);
+    }
+
+    .street3 {
+      bottom: 29%;
+      left: 15%;
+      transform: rotate(24deg);
+    }
+
+    .street4 {
+      top: 17%;
+      left: 43%;
+      transform: rotate(7deg);
+    }
+
+    /* =====================================================
+       BARRA SUPERIOR
+       ===================================================== */
+
+    .topbar {
+      position: absolute;
+      z-index: 30;
+      top: 14px;
+      left: 12px;
+      right: 12px;
+
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .back-button {
+      width: 48px;
+      height: 48px;
+
+      border: none;
+      border-radius: 50%;
+
+      background: rgba(255,255,255,.97);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      box-shadow:
+        0 2px 6px rgba(0,0,0,.25);
+
+      font-size: 27px;
+      color: #444;
+    }
+
+    .searchbar {
+      flex: 1;
+      height: 48px;
+
+      background: white;
+      border-radius: 25px;
+
+      display: flex;
+      align-items: center;
+
+      padding: 0 17px;
+
+      box-shadow:
+        0 2px 6px rgba(0,0,0,.25);
+    }
+
+    .search-icon {
+      font-size: 19px;
+      margin-right: 12px;
+    }
+
+    .search-text {
+      font-size: 15px;
+      color: #555;
+    }
+
+    .account {
+      width: 42px;
+      height: 42px;
+
+      border-radius: 50%;
+
+      background: #1a73e8;
+      color: white;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 16px;
+      font-weight: bold;
+
+      box-shadow:
+        0 2px 5px rgba(0,0,0,.25);
+    }
+
+    /* =====================================================
+       CONTROLES
+       ===================================================== */
+
+    .map-controls {
+      position: absolute;
+      z-index: 20;
+
+      right: 12px;
+      top: 82px;
+
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .map-control {
+      width: 44px;
+      height: 44px;
+
+      border: none;
+      border-radius: 50%;
+
+      background: rgba(255,255,255,.96);
+
+      box-shadow:
+        0 2px 5px rgba(0,0,0,.25);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 21px;
+      color: #555;
+    }
+
+    /* =====================================================
+       MARCADOR
+       ===================================================== */
+
+    .marker-container {
+      position: absolute;
+      z-index: 15;
+
+      left: 50%;
+      top: 43%;
+
+      transform:
+        translate(-50%, -100%);
+    }
+
+    .marker {
+      width: 42px;
+      height: 42px;
+
+      background: #d93025;
+
+      border-radius: 50% 50% 50% 0;
+
+      transform: rotate(-45deg);
+
+      box-shadow:
+        0 2px 6px rgba(0,0,0,.35);
+
+      position: relative;
+    }
+
+    .marker::after {
+      content: "";
+
+      position: absolute;
+
+      width: 15px;
+      height: 15px;
+
+      background: white;
+
+      border-radius: 50%;
+
+      top: 13px;
+      left: 13px;
+    }
+
+    .marker-shadow {
+      width: 42px;
+      height: 12px;
+
+      background: rgba(0,0,0,.18);
+
+      border-radius: 50%;
+
+      margin-top: -2px;
+
+      filter: blur(2px);
+    }
+
+    /* =====================================================
+       TARJETA
+       ===================================================== */
+
+    .bottom-card {
+      position: absolute;
+      z-index: 40;
+
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      background: white;
+
+      border-radius: 22px 22px 0 0;
+
+      padding: 10px 20px 22px;
+
+      box-shadow:
+        0 -3px 15px rgba(0,0,0,.20);
+
+      max-height: 62vh;
+      overflow-y: auto;
+    }
+
+    .handle {
+      width: 38px;
+      height: 4px;
+
+      background: #c7c7c7;
+
+      border-radius: 5px;
+
+      margin: 0 auto 15px;
+    }
+
+    /* =====================================================
+       CABECERA
+       ===================================================== */
+
+    .header-row {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .drone-icon {
+      width: 48px;
+      height: 48px;
+
+      background: #f1f3f4;
+
+      border-radius: 50%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 25px;
+
+      flex-shrink: 0;
+    }
+
+    .title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #202124;
+      margin-bottom: 3px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #5f6368;
+      line-height: 1.4;
+    }
+
+    /* =====================================================
+       PROPIETARIO
+       ===================================================== */
+
+    .owner-box {
+      margin-top: 16px;
+
+      background: #f8f9fa;
+
+      border-radius: 14px;
+
+      padding: 13px 14px;
+    }
+
+    .owner-label {
+      color: #5f6368;
+      font-size: 12px;
+      margin-bottom: 3px;
+    }
+
+    .owner-name {
+      color: #202124;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .owner-description {
+      margin-top: 3px;
+      color: #5f6368;
+      font-size: 13px;
+    }
+
+    /* =====================================================
+       MENSAJE
+       ===================================================== */
+
+    .message {
+      color: #3c4043;
+      font-size: 14px;
+      line-height: 1.5;
+
+      margin-top: 15px;
+    }
+
+    .message strong {
+      color: #202124;
+    }
+
+    /* =====================================================
+       WHATSAPP
+       ===================================================== */
+
+    .whatsapp-button {
+      width: 100%;
+      height: 50px;
+
+      margin-top: 17px;
+
+      border: none;
+      border-radius: 25px;
+
+      background: #25d366;
+      color: white;
+
+      font-size: 15px;
+      font-weight: 600;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 2px 5px rgba(0,0,0,.16);
+    }
+
+    .whatsapp-button:active {
+      transform: scale(.98);
+    }
+
+    /* =====================================================
+       ESTADO GPS
+       ===================================================== */
+
+    .gps-status {
+      margin-top: 12px;
+
+      text-align: center;
+
+      font-size: 12px;
+
+      min-height: 18px;
+
+      color: #5f6368;
+
+      line-height: 1.4;
+    }
+
+    .gps-status.success {
+      color: #188038;
+    }
+
+    .gps-status.error {
+      color: #d93025;
+    }
+
+    /* =====================================================
+       PRIVACIDAD
+       ===================================================== */
+
+    .privacy {
+      text-align: center;
+
+      margin-top: 9px;
+
+      font-size: 10px;
+
+      color: #80868b;
+    }
+
+    /* =====================================================
+       ATRIBUCIÓN
+       ===================================================== */
+
+    .map-attribution {
+      position: absolute;
+      z-index: 10;
+
+      left: 8px;
+      bottom: 210px;
+
+      font-size: 9px;
+
+      color: #666;
+
+      background: rgba(255,255,255,.7);
+
+      padding: 2px 4px;
+
+      border-radius: 3px;
+    }
+
+    /* =====================================================
+       DESKTOP
+       ===================================================== */
+
+    @media (min-width: 700px) {
+
+      .bottom-card {
+        max-width: 500px;
+
+        left: 50%;
+        right: auto;
+
+        transform: translateX(-50%);
+
+        width: 500px;
+
+        bottom: 20px;
+
+        border-radius: 22px;
+
+        max-height: 75vh;
+      }
+
+      .map-attribution {
+        bottom: 225px;
+      }
+
+    }
+
+    /* =====================================================
+       PANTALLAS PEQUEÑAS
+       ===================================================== */
+
+    @media (max-width: 380px) {
+
+      .account {
+        display: none;
+      }
+
+      .bottom-card {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+
+      .title {
+        font-size: 18px;
+      }
+
+      .message {
+        font-size: 13px;
+      }
+
+      .owner-box {
+        padding: 11px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- =====================================================
+       MAPA
+       ===================================================== -->
+
+  <div class="map">
+
+    <div class="terrain">
+
+      <div class="park one"></div>
+      <div class="park two"></div>
+      <div class="park three"></div>
+
+      <div class="water"></div>
+
+      <div class="block b1"></div>
+      <div class="block b2"></div>
+      <div class="block b3"></div>
+      <div class="block b4"></div>
+      <div class="block b5"></div>
+      <div class="block b6"></div>
+
+      <div class="road main"></div>
+
+      <div class="road secondary1"></div>
+      <div class="road secondary2"></div>
+      <div class="road secondary3"></div>
+      <div class="road secondary4"></div>
+
+      <div class="road small1"></div>
+      <div class="road small2"></div>
+      <div class="road small3"></div>
+
+      <div class="street-name street1">
+        Avenida Central
+      </div>
+
+      <div class="street-name street2">
+        Calle Principal
+      </div>
+
+      <div class="street-name street3">
+        Avenida Norte
+      </div>
+
+      <div class="street-name street4">
+        Calle Los Pinos
+      </div>
+
+    </div>
+
+
+    <!-- ===================================================
+         BARRA SUPERIOR
+         =================================================== -->
+
+    <div class="topbar">
+
+      <button
+        class="back-button"
+        onclick="history.back()"
+        aria-label="Atrás"
+      >
+        ‹
+      </button>
+
+      <div class="searchbar">
+
+        <span class="search-icon">
+          🔍
+        </span>
+
+        <span class="search-text">
+          Buscar en el mapa
+        </span>
+
+      </div>
+
+      <div class="account">
+        ?
+      </div>
+
+    </div>
+
+
+    <!-- ===================================================
+         CONTROLES
+         =================================================== -->
+
+    <div class="map-controls">
+
+      <button
+        class="map-control"
+        onclick="centrarMapa()"
+        aria-label="Centrar"
+      >
+        ◎
+      </button>
+
+      <button
+        class="map-control"
+        onclick="zoomIn()"
+        aria-label="Acercar"
+      >
+        +
+      </button>
+
+      <button
+        class="map-control"
+        onclick="zoomOut()"
+        aria-label="Alejar"
+      >
+        −
+      </button>
+
+    </div>
+
+
+    <!-- ===================================================
+         MARCADOR
+         =================================================== -->
+
+    <div class="marker-container">
+
+      <div class="marker"></div>
+
+      <div class="marker-shadow"></div>
+
+    </div>
+
+
+    <div class="map-attribution">
+      Mapa ilustrativo
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       TARJETA DE RECUPERACIÓN
+       ===================================================== -->
+
+  <div class="bottom-card">
+
+    <div class="handle"></div>
+
+
+    <!-- CABECERA -->
+
+    <div class="header-row">
+
+      <div class="drone-icon">
+        🚁
+      </div>
+
+      <div>
+
+        <div class="title">
+          DJI Neo 2 encontrado
+        </div>
+
+        <div class="subtitle">
+          Este dron tiene un propietario registrado.
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- PROPIETARIO -->
+
+    <div class="owner-box">
+
+      <div class="owner-label">
+        Propietario
+      </div>
+
+      <div class="owner-name">
+        Manuel Arce
+      </div>
+
+      <div class="owner-description">
+        Este DJI Neo 2 está registrado a nombre de su propietario.
+      </div>
+
+    </div>
+
+
+    <!-- MENSAJE -->
+
+    <div class="message">
+
+      <strong>¿Encontraste este dron?</strong><br>
+
+      Gracias por ayudar a devolverlo.
+      El propietario ha sido notificado de que alguien
+      encontró el dispositivo. Puedes contactarlo
+      directamente para coordinar su devolución.
+
+    </div>
+
+
+    <!-- WHATSAPP -->
+
+    <button
+      id="whatsappButton"
+      class="whatsapp-button"
+      onclick="contactarWhatsApp()"
+    >
+      💬 Contactar al propietario por WhatsApp
+    </button>
+
+
+    <!-- ESTADO GPS -->
+
+    <div
+      id="gpsStatus"
+      class="gps-status"
+    >
+      📍 Obteniendo ubicación...
+    </div>
+
+
+    <div class="privacy">
+      La ubicación se utiliza únicamente para ayudar
+      a recuperar el dron.
+    </div>
+
+  </div>
+
+
+  <script>
+
+    /* =====================================================
+       CONFIGURACIÓN
+       ===================================================== */
+
+    const APPS_SCRIPT_URL =
+      "https://script.google.com/macros/s/AKfycbwLpbcRR0dwFamGKl3BspyuMPBjJQXasgDZ0uX6cHZvGCAlbxpoxzqOvRElV0MGcUbc/exec";
+
+
+    /*
+     * NÚMERO DE WHATSAPP DEL PROPIETARIO
+     *
+     * Formato:
+     *
+     * 503XXXXXXXX
+     *
+     * Sin +, espacios ni guiones.
+     */
+
+    const OWNER_WHATSAPP =
+      "503XXXXXXXX";
+
+
+    const OWNER_NAME =
+      "Manuel";
+
+
+    /* =====================================================
+       NFC ID
+       ===================================================== */
+
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+
+    const nfcId =
+      params.get("id") ||
+      "NEO2-001";
+
+
+    /* =====================================================
+       SCAN ID
+       ===================================================== */
+
+    const scanId =
+      Date.now().toString(36) +
+      "-" +
+      Math.random()
+        .toString(36)
+        .substring(2, 10);
+
+
+    /* =====================================================
+       REGISTRAR ESCANEO
+       ===================================================== */
+
+    function registrarEscaneo() {
+
+      const userAgent =
+        navigator.userAgent;
+
+
+      const url =
+        APPS_SCRIPT_URL +
+        "?action=scan" +
+        "&nfc_id=" +
+        encodeURIComponent(nfcId) +
+        "&scan_id=" +
+        encodeURIComponent(scanId) +
+        "&user_agent=" +
+        encodeURIComponent(userAgent);
+
+
+      const img =
+        new Image();
+
+
+      img.src =
+        url;
+
+    }
+
+
+    /* =====================================================
+       OBTENER UBICACIÓN AUTOMÁTICAMENTE
+       ===================================================== */
+
+    function obtenerUbicacion() {
+
+      const status =
+        document.getElementById(
+          "gpsStatus"
+        );
+
+
+      if (
+        !navigator.geolocation
+      ) {
+
+        status.textContent =
+          "⚠️ Este dispositivo no permite obtener la ubicación.";
+
+        status.className =
+          "gps-status error";
+
+        return;
+
+      }
+
+
+      status.textContent =
+        "📍 Solicitando ubicación...";
+
+
+      navigator.geolocation.getCurrentPosition(
+
+        function(position) {
+
+          const latitude =
+            position.coords.latitude;
+
+
+          const longitude =
+            position.coords.longitude;
+
+
+          const accuracy =
+            position.coords.accuracy;
+
+
+          guardarUbicacion(
+            latitude,
+            longitude,
+            accuracy
+          );
+
+        },
+
+
+        function(error) {
+
+          let mensaje =
+            "⚠️ No se pudo obtener la ubicación.";
+
+
+          if (
+            error.code === 1
+          ) {
+
+            mensaje =
+              "⚠️ Se necesita permiso de ubicación para registrar dónde fue encontrado el dron.";
+
+          }
+          else if (
+            error.code === 2
+          ) {
+
+            mensaje =
+              "⚠️ La ubicación no está disponible en este momento.";
+
+          }
+          else if (
+            error.code === 3
+          ) {
+
+            mensaje =
+              "⚠️ La solicitud de ubicación tardó demasiado.";
+
+          }
+
+
+          status.textContent =
+            mensaje;
+
+
+          status.className =
+            "gps-status error";
+
+        },
+
+
+        {
+          enableHighAccuracy: true,
+          timeout: 15000,
+          maximumAge: 0
+        }
+
+      );
+
+    }
+
+
+    /* =====================================================
+       GUARDAR UBICACIÓN
+       ===================================================== */
+
+    function guardarUbicacion(
+      latitude,
+      longitude,
+      accuracy
+    ) {
+
+      const status =
+        document.getElementById(
+          "gpsStatus"
+        );
+
+
+      status.textContent =
+        "📍 Guardando ubicación...";
+
+
+      status.className =
+        "gps-status";
+
+
+      const url =
+        APPS_SCRIPT_URL +
+        "?action=location" +
+        "&scan_id=" +
+        encodeURIComponent(scanId) +
+        "&latitud=" +
+        encodeURIComponent(latitude) +
+        "&longitud=" +
+        encodeURIComponent(longitude) +
+        "&precision=" +
+        encodeURIComponent(accuracy);
+
+
+      const img =
+        new Image();
+
+
+      img.onload =
+        function() {
+
+          ubicacionGuardada();
+
+        };
+
+
+      img.onerror =
+        function() {
+
+          /*
+           * Google Apps Script puede haber recibido
+           * correctamente la petición aunque el navegador
+           * marque la carga de la imagen como error.
+           */
+
+          ubicacionGuardada();
+
+        };
+
+
+      img.src =
+        url;
+
+    }
+
+
+    /* =====================================================
+       UBICACIÓN GUARDADA
+       ===================================================== */
+
+    function ubicacionGuardada() {
+
+      const status =
+        document.getElementById(
+          "gpsStatus"
+        );
+
+
+      status.textContent =
+        "✓ Ubicación registrada correctamente.";
+
+      status.className =
+        "gps-status success";
+
+    }
+
+
+    /* =====================================================
+       WHATSAPP
+       ===================================================== */
+
+    function contactarWhatsApp() {
+
+      const mensaje =
+        "¡Hola! Encontré tu DJI Neo 2 🛸. " +
+        "Quiero ayudarte a recuperarlo.";
+
+
+      const url =
+        "https://wa.me/" +
+        OWNER_WHATSAPP +
+        "?text=" +
+        encodeURIComponent(
+          mensaje
+        );
+
+
+      window.open(
+        url,
+        "_blank"
+      );
+
+    }
+
+
+    /* =====================================================
+       ZOOM
+       ===================================================== */
+
+    let mapScale =
+      1;
+
+
+    function zoomIn() {
+
+      mapScale +=
+        0.15;
+
+
+      if (
+        mapScale > 1.6
+      ) {
+
+        mapScale =
+          1.6;
+
+      }
+
+
+      aplicarZoom();
+
+    }
+
+
+    function zoomOut() {
+
+      mapScale -=
+        0.15;
+
+
+      if (
+        mapScale < 0.8
+      ) {
+
+        mapScale =
+          0.8;
+
+      }
+
+
+      aplicarZoom();
+
+    }
+
+
+    function aplicarZoom() {
+
+      const terrain =
+        document.querySelector(
+          ".terrain"
+        );
+
+
+      terrain.style.transform =
+        "rotate(-4deg) scale(" +
+        (
+          1.08 *
+          mapScale
+        ) +
+        ")";
+
+    }
+
+
+    /* =====================================================
+       CENTRAR MAPA
+       ===================================================== */
+
+    function centrarMapa() {
+
+      const marker =
+        document.querySelector(
+          ".marker-container"
+        );
+
+
+      marker.animate(
+
+        [
+          {
+            transform:
+              "translate(-50%, -100%) scale(1)"
+          },
+
+          {
+            transform:
+              "translate(-50%, -100%) scale(1.2)"
+          },
+
+          {
+            transform:
+              "translate(-50%, -100%) scale(1)"
+          }
+
+        ],
+
+        {
+          duration: 450
+        }
+
+      );
+
+    }
+
+
+    /* =====================================================
+       INICIO
+       ===================================================== */
+
+    /*
+     * Primero registramos el escaneo.
+     */
+
+    registrarEscaneo();
+
+
+    /*
+     * Inmediatamente después solicitamos GPS.
+     */
+
+    obtenerUbicacion();
+
+  </script>
+
+</body>
+
+</html>
