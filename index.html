@@ -6,6 +6,16 @@
 
   <title>DJI Neo 2 - Recuperación</title>
 
+  <!-- Leaflet -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  ></script>
+
   <style>
     * {
       box-sizing: border-box;
@@ -19,7 +29,7 @@
       height: 100%;
       overflow: hidden;
       font-family: Arial, Helvetica, sans-serif;
-      background: #f2f2f2;
+      background: #e5e3df;
     }
 
     #map {
@@ -27,7 +37,6 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      background: #e5e3df;
     }
 
     .top-bar {
@@ -35,10 +44,9 @@
       top: 0;
       left: 0;
       right: 0;
-      z-index: 10;
+      z-index: 1000;
 
       display: flex;
-      align-items: center;
       justify-content: space-between;
 
       padding: 14px 16px;
@@ -50,14 +58,15 @@
       width: 44px;
       height: 44px;
 
-      border: none;
+      border: 0;
       border-radius: 50%;
 
-      background: rgba(255,255,255,0.96);
+      background: white;
 
-      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 
-      font-size: 20px;
+      color: #333;
+      font-size: 22px;
 
       display: flex;
       align-items: center;
@@ -75,15 +84,17 @@
 
       transform: translateX(-50%);
 
-      z-index: 10;
+      z-index: 1000;
+
+      padding: 10px 17px;
 
       background: white;
 
-      padding: 10px 16px;
-
       border-radius: 24px;
 
-      box-shadow: 0 2px 10px rgba(0,0,0,0.22);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.22);
+
+      color: #444;
 
       font-size: 14px;
 
@@ -97,17 +108,18 @@
       right: 0;
       bottom: 0;
 
-      z-index: 20;
+      z-index: 1000;
 
       background: white;
 
       border-radius: 24px 24px 0 0;
 
-      padding: 22px 20px 28px;
+      padding: 18px 20px 25px;
 
-      box-shadow: 0 -4px 18px rgba(0,0,0,0.18);
+      box-shadow: 0 -4px 18px rgba(0, 0, 0, 0.18);
 
       max-height: 48vh;
+
       overflow-y: auto;
     }
 
@@ -115,11 +127,11 @@
       width: 42px;
       height: 5px;
 
+      margin: 0 auto 18px;
+
       border-radius: 10px;
 
       background: #d0d0d0;
-
-      margin: 0 auto 18px;
     }
 
     .status {
@@ -129,7 +141,6 @@
       padding: 6px 10px;
 
       background: #e8f5e9;
-
       color: #16843b;
 
       border-radius: 20px;
@@ -143,9 +154,10 @@
     h1 {
       margin: 0 0 8px;
 
-      font-size: 23px;
-
       color: #202124;
+
+      font-size: 23px;
+      line-height: 1.25;
     }
 
     .description {
@@ -154,7 +166,6 @@
       color: #5f6368;
 
       font-size: 15px;
-
       line-height: 1.5;
     }
 
@@ -166,16 +177,18 @@
 
       padding: 13px;
 
+      margin-bottom: 16px;
+
       background: #f7f7f7;
 
       border-radius: 14px;
-
-      margin-bottom: 16px;
     }
 
     .owner-icon {
       width: 42px;
       height: 42px;
+
+      flex-shrink: 0;
 
       border-radius: 50%;
 
@@ -185,7 +198,10 @@
       align-items: center;
       justify-content: center;
 
-      font-size: 21px;
+      color: #555;
+
+      font-size: 18px;
+      font-weight: bold;
     }
 
     .owner-info {
@@ -193,28 +209,29 @@
     }
 
     .owner-label {
-      font-size: 12px;
+      margin-bottom: 3px;
 
       color: #777;
 
-      margin-bottom: 3px;
+      font-size: 12px;
     }
 
     .owner-name {
-      font-size: 16px;
-
-      font-weight: 600;
-
       color: #202124;
+
+      font-size: 16px;
+      font-weight: 600;
     }
 
     .gps-status {
       display: flex;
       align-items: center;
 
-      gap: 8px;
+      gap: 9px;
 
       padding: 11px 12px;
+
+      margin-bottom: 14px;
 
       background: #f1f3f4;
 
@@ -223,30 +240,38 @@
       color: #5f6368;
 
       font-size: 13px;
+    }
 
-      margin-bottom: 14px;
+    .gps-dot {
+      width: 9px;
+      height: 9px;
+
+      flex-shrink: 0;
+
+      border-radius: 50%;
+
+      background: #4285f4;
     }
 
     .whatsapp-button {
       width: 100%;
 
-      border: none;
+      border: 0;
 
       border-radius: 14px;
 
       padding: 15px;
 
-      background: #25D366;
+      background: #25d366;
 
       color: white;
 
       font-size: 16px;
-
       font-weight: 600;
 
       cursor: pointer;
 
-      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
     }
 
     .whatsapp-button:active {
@@ -256,52 +281,12 @@
     .privacy {
       margin-top: 13px;
 
-      text-align: center;
-
       color: #777;
 
-      font-size: 11px;
-
-      line-height: 1.4;
-    }
-
-    .map-error {
-      position: absolute;
-
-      top: 50%;
-      left: 50%;
-
-      transform: translate(-50%, -50%);
-
-      z-index: 50;
-
-      width: calc(100% - 40px);
-
-      max-width: 420px;
-
-      background: white;
-
-      border-radius: 18px;
-
-      padding: 22px;
-
-      box-shadow: 0 5px 25px rgba(0,0,0,0.25);
-
-      display: none;
-
       text-align: center;
-    }
 
-    .map-error h2 {
-      margin: 0 0 10px;
-      font-size: 19px;
-    }
-
-    .map-error p {
-      margin: 0;
-      color: #666;
-      line-height: 1.5;
-      font-size: 14px;
+      font-size: 11px;
+      line-height: 1.4;
     }
 
     @media (min-width: 700px) {
@@ -320,126 +305,16 @@
 
     }
   </style>
-
-
-  <!-- ======================================================
-       GOOGLE MAPS
-       ======================================================
-
-       CAMBIA TU_API_KEY POR TU API KEY REAL
-       ====================================================== -->
-
-  <script>
-  (
-    g => {
-
-      var h,
-          a,
-          k,
-          p = "The Google Maps JavaScript API",
-          c = "google",
-          l = "importLibrary",
-          q = "__ib__",
-          m = document,
-          b = window;
-
-      b = b[c] || (b[c] = {});
-
-      var d = b.maps || (b.maps = {});
-
-      var r = new Set();
-
-      var e = new URLSearchParams();
-
-      var u = () =>
-        h ||
-        (
-          h =
-            new Promise(
-              async (f, n) => {
-
-                await (a = m.createElement("script"));
-
-                e.set(
-                  "libraries",
-                  [...r] + ""
-                );
-
-                for (k in g) {
-
-                  e.set(
-                    k.replace(
-                      /[A-Z]/g,
-                      t => "_" + t.toLowerCase()
-                    ),
-                    g[k]
-                  );
-
-                }
-
-                e.set(
-                  "callback",
-                  c + ".maps." + q
-                );
-
-                a.src =
-                  "https://maps." +
-                  c +
-                  "apis.com/maps/api/js?" +
-                  e;
-
-                d[q] = f;
-
-                a.onerror = () =>
-                  h =
-                    n(
-                      Error(p + " could not load.")
-                    );
-
-                a.nonce =
-                  m.querySelector(
-                    "script[nonce]"
-                  )?.nonce || "";
-
-                m.head.append(a);
-
-              }
-            )
-        );
-
-      d[l]
-        ? console.warn(
-            p +
-            " only loads once. Ignoring:",
-            g
-          )
-        : d[l] =
-            (f, ...n) =>
-              r.add(f) &&
-              u().then(
-                () => d[l](f, ...n)
-              );
-
-    }
-  )({
-
-    key: "TU_API_KEY",
-
-    v: "weekly"
-
-  });
-  </script>
-
 </head>
-
 
 <body>
 
   <!-- MAPA -->
+
   <div id="map"></div>
 
 
-  <!-- CONTROLES SUPERIORES -->
+  <!-- CONTROLES -->
 
   <div class="top-bar">
 
@@ -448,14 +323,15 @@
       onclick="window.history.back()"
       aria-label="Volver"
     >
-      ←
+      ‹
     </button>
 
     <button
       class="top-control"
+      onclick="mostrarInformacion()"
       aria-label="Información"
     >
-      ⓘ
+      i
     </button>
 
   </div>
@@ -467,25 +343,7 @@
     id="gpsFloating"
     class="gps-floating"
   >
-    📍 Obteniendo ubicación...
-  </div>
-
-
-  <!-- ERROR MAPA -->
-
-  <div
-    id="mapError"
-    class="map-error"
-  >
-
-    <h2>
-      🗺️ No se pudo cargar el mapa
-    </h2>
-
-    <p id="mapErrorText">
-      Verifica la configuración de Google Maps.
-    </p>
-
+    Obteniendo ubicación...
   </div>
 
 
@@ -495,30 +353,24 @@
 
     <div class="drag-handle"></div>
 
-
     <div class="status">
-      ✓ Dispositivo registrado
+      Dispositivo registrado
     </div>
 
-
     <h1>
-      🚁 DJI Neo 2 encontrado
+      DJI Neo 2 encontrado
     </h1>
-
 
     <p class="description">
       Este dron tiene un propietario registrado.
-      La ubicación del escaneo se registra
-      automáticamente para facilitar su recuperación.
+      Si lo encontraste, puedes comunicarte directamente
+      con el propietario para coordinar su devolución.
     </p>
-
-
-    <!-- PROPIETARIO -->
 
     <div class="owner-card">
 
       <div class="owner-icon">
-        👤
+        M
       </div>
 
       <div class="owner-info">
@@ -535,31 +387,24 @@
 
     </div>
 
-
-    <!-- GPS -->
-
     <div
       id="gpsStatus"
       class="gps-status"
     >
-      📍 Obteniendo ubicación...
+      <span class="gps-dot"></span>
+      Obteniendo ubicación...
     </div>
 
-
-    <!-- WHATSAPP -->
-
     <button
-      id="whatsappButton"
       class="whatsapp-button"
       onclick="contactarWhatsApp()"
     >
-      💬 Contactar al propietario por WhatsApp
+      Contactar al propietario por WhatsApp
     </button>
 
-
     <div class="privacy">
-      La ubicación se utiliza únicamente para ayudar
-      a recuperar el dron.
+      La ubicación del escaneo se registra para facilitar
+      la recuperación del dron.
     </div>
 
   </div>
@@ -567,83 +412,47 @@
 
   <script>
 
-    /*
-    ============================================================
-    CONFIGURACIÓN
-    ============================================================
-    */
+    /* ============================
+       CONFIGURACIÓN
+    ============================ */
 
     const APPS_SCRIPT_URL =
       "https://script.google.com/macros/s/AKfycbwLpbcRR0dwFamGKl3BspyuMPBjJQXasgDZ0uX6cHZvGCAlbxpoxzqOvRElV0MGcUbc/exec";
 
-
-    /*
-    ============================================================
-    WHATSAPP DEL PROPIETARIO
-
-    Formato:
-    503XXXXXXXX
-
-    Sin +
-    Sin espacios
-    Sin guiones
-    ============================================================
-    */
-
     const OWNER_WHATSAPP =
       "50370163917";
 
-
     const OWNER_NAME =
-      "Manuel Arce";
+      "Manuel Alexander Arce";
 
 
-    /*
-    ============================================================
-    POSICIÓN INICIAL
+    /* ============================
+       POSICIÓN INICIAL
+    ============================ */
 
-    Se muestra mientras todavía no se obtiene GPS.
-    ============================================================
-    */
-
-    const INITIAL_POSITION = {
-
-      lat: 13.6929,
-
-      lng: -89.2182
-
-    };
+    const INITIAL_POSITION = [
+      13.6929,
+      -89.2182
+    ];
 
 
-    /*
-    ============================================================
-    NFC
+    /* ============================
+       ID DEL DRON
+    ============================ */
 
-    URL:
-
-    https://manulex-arce.github.io/drone-nfc/?id=NEO2-001
-
-    ============================================================
-    */
-
-    const params =
+    const urlParams =
       new URLSearchParams(
         window.location.search
       );
 
-
     const nfcId =
-      params.get("id") ||
+      urlParams.get("id") ||
       "NEO2-001";
 
 
-    /*
-    ============================================================
-    SCAN ID
-
-    Identificador único de ESTA visita.
-    ============================================================
-    */
+    /* ============================
+       ID ÚNICO DEL ESCANEO
+    ============================ */
 
     const scanId =
       Date.now().toString(36) +
@@ -653,285 +462,160 @@
         .substring(2, 10);
 
 
-    /*
-    ============================================================
-    MAPA
-    ============================================================
-    */
+    /* ============================
+       VARIABLES DEL MAPA
+    ============================ */
 
     let map = null;
 
     let marker = null;
 
-    let mapaListo = false;
+    let accuracyCircle = null;
 
 
-    /*
-    ============================================================
-    GPS QUE LLEGÓ ANTES DEL MAPA
-    ============================================================
-    */
+    /* ============================
+       INICIAR MAPA
+    ============================ */
 
-    let pendingPosition = null;
+    function iniciarMapa() {
 
-
-    /*
-    ============================================================
-    INICIAR GOOGLE MAPS
-    ============================================================
-    */
-
-    async function iniciarMapa() {
-
-      try {
-
-        const { Map } =
-          await google.maps.importLibrary(
-            "maps"
-          );
+      map =
+        L.map("map", {
+          zoomControl: false
+        })
+        .setView(
+          INITIAL_POSITION,
+          15
+        );
 
 
-        const {
-          AdvancedMarkerElement
-        } =
-          await google.maps.importLibrary(
-            "marker"
-          );
+      /* Tiles de OpenStreetMap */
 
+      L.tileLayer(
+        "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+          maxZoom: 19,
 
-        map =
-          new Map(
-            document.getElementById("map"),
-            {
-
-              center:
-                INITIAL_POSITION,
-
-              zoom:
-                15,
-
-              /*
-                Map ID requerido para
-                AdvancedMarkerElement.
-
-                DEMO_MAP_ID sirve para pruebas.
-              */
-
-              mapId:
-                "DEMO_MAP_ID",
-
-              mapTypeControl:
-                false,
-
-              streetViewControl:
-                false,
-
-              fullscreenControl:
-                false,
-
-              zoomControl:
-                false,
-
-              gestureHandling:
-                "greedy"
-
-            }
-          );
-
-
-        marker =
-          new AdvancedMarkerElement({
-
-            map:
-              map,
-
-            position:
-              INITIAL_POSITION,
-
-            title:
-              "Ubicación del escaneo"
-
-          });
-
-
-        mapaListo = true;
-
-
-        /*
-          Si GPS ya había respondido,
-          movemos el mapa.
-        */
-
-        if (
-          pendingPosition
-        ) {
-
-          actualizarMapa(
-            pendingPosition.lat,
-            pendingPosition.lng
-          );
-
-          pendingPosition =
-            null;
-
+          attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
         }
+      ).addTo(map);
 
 
-        console.log(
-          "Google Maps cargado correctamente."
-        );
+      /* Controles de zoom */
 
-      }
-
-      catch (error) {
-
-        console.error(
-          "Error Google Maps:",
-          error
-        );
+      L.control.zoom({
+        position: "bottomright"
+      }).addTo(map);
 
 
-        mostrarErrorMapa(
-          error
-        );
+      /* Marcador inicial */
 
-      }
+      marker =
+        L.marker(
+          INITIAL_POSITION
+        ).addTo(map);
 
+
+      marker.bindPopup(
+        "Ubicación del escaneo"
+      );
+
+
+      console.log(
+        "Mapa Leaflet cargado correctamente."
+      );
     }
 
 
-    /*
-    ============================================================
-    ACTUALIZAR MAPA
-    ============================================================
-    */
+    /* ============================
+       ACTUALIZAR MAPA CON GPS
+    ============================ */
 
     function actualizarMapa(
       latitude,
-      longitude
+      longitude,
+      accuracy
     ) {
 
-      const position = {
-
-        lat:
-          latitude,
-
-        lng:
-          longitude
-
-      };
+      const position = [
+        latitude,
+        longitude
+      ];
 
 
-      /*
-        Si Maps todavía no está listo,
-        guardamos la posición.
-      */
-
-      if (
-        !mapaListo ||
-        !map ||
-        !marker
-      ) {
-
-        pendingPosition =
-          position;
-
+      if (!map) {
         return;
-
       }
 
 
-      map.panTo(
+      /* Mover mapa */
+
+      map.setView(
+        position,
+        18,
+        {
+          animate: true
+        }
+      );
+
+
+      /* Mover marcador */
+
+      marker.setLatLng(
         position
       );
 
 
-      map.setZoom(
-        18
+      marker.bindPopup(
+        "Ubicación del escaneo"
       );
 
 
-      marker.position =
-        position;
+      /* Círculo de precisión */
+
+      if (accuracyCircle) {
+
+        accuracyCircle.setLatLng(
+          position
+        );
+
+        accuracyCircle.setRadius(
+          accuracy
+        );
+
+      } else {
+
+        accuracyCircle =
+          L.circle(
+            position,
+            {
+              radius: accuracy,
+
+              color: "#4285f4",
+
+              fillColor: "#4285f4",
+
+              fillOpacity: 0.12,
+
+              weight: 1
+            }
+          ).addTo(map);
+      }
 
 
       console.log(
         "Mapa actualizado:",
         latitude,
-        longitude
+        longitude,
+        accuracy
       );
-
     }
 
 
-    /*
-    ============================================================
-    ERROR MAPA
-    ============================================================
-    */
-
-    function mostrarErrorMapa(
-      error
-    ) {
-
-      const box =
-        document.getElementById(
-          "mapError"
-        );
-
-
-      const text =
-        document.getElementById(
-          "mapErrorText"
-        );
-
-
-      box.style.display =
-        "block";
-
-
-      let mensaje =
-        "No fue posible cargar Google Maps.";
-
-
-      if (
-        error &&
-        error.message
-      ) {
-
-        mensaje +=
-          " " +
-          error.message;
-
-      }
-
-
-      mensaje +=
-        " Revisa tu API Key, Maps JavaScript API y la configuración de billing en Google Cloud.";
-
-
-      text.textContent =
-        mensaje;
-
-    }
-
-
-    /*
-    ============================================================
-    REGISTRAR ESCANEO NFC
-    ============================================================
-
-    IMPORTANTE:
-
-    Tu Apps Script espera:
-
-    action=scan
-    id=
-    scan_id=
-    ua=
-
-    ============================================================
-    */
+    /* ============================
+       REGISTRAR ESCANEO
+    ============================ */
 
     function registrarEscaneo() {
 
@@ -939,74 +623,63 @@
         navigator.userAgent;
 
 
-      const url =
+      const params =
+        new URLSearchParams();
+
+
+      params.set(
+        "action",
+        "scan"
+      );
+
+
+      params.set(
+        "id",
+        nfcId
+      );
+
+
+      params.set(
+        "ua",
+        userAgent
+      );
+
+
+      params.set(
+        "scan_id",
+        scanId
+      );
+
+
+      const requestUrl =
         APPS_SCRIPT_URL +
-
-        "?action=scan" +
-
-        "&id=" +
-        encodeURIComponent(
-          nfcId
-        ) +
-
-        "&scan_id=" +
-        encodeURIComponent(
-          scanId
-        ) +
-
-        "&ua=" +
-        encodeURIComponent(
-          userAgent
-        );
+        "?" +
+        params.toString();
 
 
       const img =
         new Image();
 
 
-      img.onload =
-        function() {
-
-          console.log(
-            "Escaneo registrado."
-          );
-
-        };
-
-
-      img.onerror =
-        function() {
-
-          console.log(
-            "Petición de escaneo enviada."
-          );
-
-        };
-
-
       img.src =
-        url;
+        requestUrl;
 
 
       console.log(
-        "Scan ID:",
-        scanId
+        "Escaneo enviado:",
+        {
+          action: "scan",
+          id: nfcId,
+          ua: userAgent,
+          scan_id: scanId
+        }
       );
-
-
-      console.log(
-        "NFC:",
-        nfcId
-      );
-
     }
 
 
-    /*
-    ============================================================
-    GPS AUTOMÁTICO
-    ============================================================
-    */
+    /* ============================
+       GPS AUTOMÁTICO
+    ============================ */
 
     function obtenerUbicacion() {
 
@@ -1015,32 +688,27 @@
           "gpsStatus"
         );
 
-
       const floating =
         document.getElementById(
           "gpsFloating"
         );
 
 
-      if (
-        !navigator.geolocation
-      ) {
+      if (!navigator.geolocation) {
 
         mostrarErrorGPS(
-          "⚠️ Este dispositivo no permite obtener ubicación."
+          "Este dispositivo no permite obtener ubicación."
         );
 
         return;
-
       }
 
 
-      status.textContent =
-        "📍 Obteniendo ubicación...";
-
+      status.innerHTML =
+        '<span class="gps-dot"></span> Obteniendo ubicación...';
 
       floating.textContent =
-        "📍 Obteniendo ubicación...";
+        "Obteniendo ubicación...";
 
 
       navigator.geolocation.getCurrentPosition(
@@ -1050,10 +718,8 @@
           const latitude =
             position.coords.latitude;
 
-
           const longitude =
             position.coords.longitude;
-
 
           const accuracy =
             position.coords.accuracy;
@@ -1068,24 +734,20 @@
           );
 
 
-          /*
-            Actualizar mapa.
-          */
+          /* Actualizar mapa */
 
           actualizarMapa(
             latitude,
-            longitude
+            longitude,
+            accuracy
           );
 
 
-          /*
-            Actualizar hoja.
-          */
+          /* Guardar en Apps Script */
 
           guardarUbicacion(
             latitude,
-            longitude,
-            accuracy
+            longitude
           );
 
         },
@@ -1094,73 +756,52 @@
         function(error) {
 
           console.error(
-            "GPS error:",
+            "Error GPS:",
             error
           );
 
 
           let mensaje =
-            "⚠️ No se pudo obtener la ubicación.";
+            "No se pudo obtener la ubicación.";
 
 
-          if (
-            error.code === 1
-          ) {
+          if (error.code === 1) {
 
             mensaje =
-              "⚠️ Se necesita permiso de ubicación.";
+              "Se necesita permiso para obtener la ubicación.";
 
-          }
-
-          else if (
-            error.code === 2
-          ) {
+          } else if (error.code === 2) {
 
             mensaje =
-              "⚠️ La ubicación no está disponible.";
+              "La ubicación no está disponible.";
 
-          }
-
-          else if (
-            error.code === 3
-          ) {
+          } else if (error.code === 3) {
 
             mensaje =
-              "⚠️ La solicitud de ubicación tardó demasiado.";
-
+              "La solicitud de ubicación tardó demasiado.";
           }
 
 
           mostrarErrorGPS(
             mensaje
           );
-
         },
 
 
         {
+          enableHighAccuracy: true,
 
-          enableHighAccuracy:
-            true,
+          timeout: 15000,
 
-          timeout:
-            15000,
-
-          maximumAge:
-            0
-
+          maximumAge: 0
         }
-
       );
-
     }
 
 
-    /*
-    ============================================================
-    ERROR GPS
-    ============================================================
-    */
+    /* ============================
+       ERROR GPS
+    ============================ */
 
     function mostrarErrorGPS(
       mensaje
@@ -1168,7 +809,8 @@
 
       document.getElementById(
         "gpsStatus"
-      ).textContent =
+      ).innerHTML =
+        '<span class="gps-dot"></span> ' +
         mensaje;
 
 
@@ -1176,29 +818,16 @@
         "gpsFloating"
       ).textContent =
         mensaje;
-
     }
 
 
-    /*
-    ============================================================
-    ACTUALIZAR GOOGLE SHEETS
-    ============================================================
-
-    Tu Apps Script espera:
-
-    action=location
-    scan_id=
-    lat=
-    lon=
-
-    ============================================================
-    */
+    /* ============================
+       GUARDAR UBICACIÓN
+    ============================ */
 
     function guardarUbicacion(
       latitude,
-      longitude,
-      accuracy
+      longitude
     ) {
 
       const status =
@@ -1206,139 +835,100 @@
           "gpsStatus"
         );
 
-
       const floating =
         document.getElementById(
           "gpsFloating"
         );
 
 
-      status.textContent =
-        "📍 Guardando ubicación...";
+      status.innerHTML =
+        '<span class="gps-dot"></span> Guardando ubicación...';
 
 
       floating.textContent =
-        "📍 Ubicación encontrada";
+        "Ubicación encontrada";
 
 
-      const url =
+      const params =
+        new URLSearchParams();
+
+
+      params.set(
+        "action",
+        "location"
+      );
+
+
+      params.set(
+        "scan_id",
+        scanId
+      );
+
+
+      params.set(
+        "lat",
+        latitude
+      );
+
+
+      params.set(
+        "lon",
+        longitude
+      );
+
+
+      const requestUrl =
         APPS_SCRIPT_URL +
-
-        "?action=location" +
-
-        "&scan_id=" +
-        encodeURIComponent(
-          scanId
-        ) +
-
-        "&lat=" +
-        encodeURIComponent(
-          latitude
-        ) +
-
-        "&lon=" +
-        encodeURIComponent(
-          longitude
-        );
+        "?" +
+        params.toString();
 
 
       const img =
         new Image();
 
 
-      img.onload =
-        function() {
-
-          ubicacionGuardada();
-
-        };
-
-
-      img.onerror =
-        function() {
-
-          /*
-            Apps Script puede haber recibido
-            la petición aunque el navegador
-            reporte error de carga.
-          */
-
-          ubicacionGuardada();
-
-        };
-
-
       img.src =
-        url;
+        requestUrl;
 
 
       console.log(
-        "Actualizando ubicación:",
-        latitude,
-        longitude
+        "Ubicación enviada:",
+        {
+          action: "location",
+          scan_id: scanId,
+          lat: latitude,
+          lon: longitude
+        }
       );
 
+
+      status.innerHTML =
+        '<span class="gps-dot"></span> Ubicación registrada';
+
+      floating.textContent =
+        "Ubicación encontrada";
     }
 
 
-    /*
-    ============================================================
-    UBICACIÓN GUARDADA
-    ============================================================
-    */
-
-    function ubicacionGuardada() {
-
-      document.getElementById(
-        "gpsStatus"
-      ).textContent =
-        "📍 Ubicación registrada";
-
-
-      document.getElementById(
-        "gpsFloating"
-      ).textContent =
-        "📍 Ubicación encontrada";
-
-    }
-
-
-    /*
-    ============================================================
-    WHATSAPP
-    ============================================================
-    */
+    /* ============================
+       WHATSAPP
+    ============================ */
 
     function contactarWhatsApp() {
-
-      if (
-        OWNER_WHATSAPP.includes(
-          "X"
-        )
-      ) {
-
-        alert(
-          "Configura primero el número de WhatsApp del propietario."
-        );
-
-        return;
-
-      }
-
 
       const mensaje =
         "Hola " +
         OWNER_NAME +
-        " 👋\n\n" +
+        ".\n\n" +
 
-        "Encontré tu DJI Neo 2 🛸.\n\n" +
+        "Encontré tu DJI Neo 2 y me gustaría devolvértelo.\n\n" +
 
-        "Escaneé la etiqueta NFC del dron y quiero ayudarte a recuperarlo.\n\n" +
+        "Podemos coordinar por este medio dónde y cuándo realizar la devolución.\n\n" +
 
-        "Podemos coordinar la devolución por este medio.";
+        "Saludos.";
 
 
-      const url =
+      const whatsappUrl =
         "https://wa.me/" +
         OWNER_WHATSAPP +
         "?text=" +
@@ -1348,40 +938,36 @@
 
 
       window.open(
-        url,
+        whatsappUrl,
         "_blank"
       );
-
     }
 
 
-    /*
-    ============================================================
-    INICIO
-    ============================================================
-    */
+    /* ============================
+       INFORMACIÓN
+    ============================ */
+
+    function mostrarInformacion() {
+
+      alert(
+        "Este DJI Neo 2 tiene un propietario registrado.\n\n" +
+        "Si encontraste el dron, puedes contactar directamente al propietario para coordinar su devolución."
+      );
+    }
+
+
+    /* ============================
+       INICIO
+    ============================ */
 
     window.addEventListener(
       "load",
       function() {
 
-        /*
-          1. Registrar escaneo
-        */
-
-        registrarEscaneo();
-
-
-        /*
-          2. Cargar mapa
-        */
-
         iniciarMapa();
 
-
-        /*
-          3. Pedir GPS automáticamente
-        */
+        registrarEscaneo();
 
         obtenerUbicacion();
 
